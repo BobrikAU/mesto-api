@@ -21,12 +21,12 @@ const cardSchema = new Schema({
   },
   owner: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'user',
     required: true,
   },
   likes: {
     type: [Schema.Types.ObjectId],
-    ref: 'User',
+    ref: 'user',
   },
   createdAt: {
     type: Date,
@@ -34,4 +34,4 @@ const cardSchema = new Schema({
   },
 });
 
-export default model<ICard>('Card', cardSchema);
+export default model<ICard>('card', cardSchema);

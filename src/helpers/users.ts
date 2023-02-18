@@ -15,14 +15,9 @@ export const handleError = (err: any, res: Response) => {
     });
   }
   return res.status(CodesErrors.Default).json({
-    massage: `Произошла ошибка: ${err}`,
+    message: `Произошла ошибка: ${err}`,
   });
 };
-
-/* res.status(500).json({
-  massage: `Произошла ошибка: ${err}`,
-  err,
-}); */
 
 interface IBody {
   [name: string]: string;
@@ -34,6 +29,6 @@ export async function updateInfo<T>(req: RequestWithId<T>, res: Response, body: 
       .then((user) => res.json(user))
       .catch((err) => handleError(err, res));
   } else {
-    res.status(400).json({ massage: 'Id пользователя не передано' });
+    res.status(400).json({ message: 'Id пользователя не передано' });
   }
 }

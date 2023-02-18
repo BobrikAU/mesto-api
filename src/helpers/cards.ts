@@ -13,7 +13,7 @@ const handleErrors = (err: any, res: Response) => {
     });
   }
   return res.status(CodesErrors.Default).json({
-    massage: `Произошла ошибка: ${err}`,
+    message: `Произошла ошибка: ${err}`,
   });
 };
 
