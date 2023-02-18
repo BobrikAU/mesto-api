@@ -5,6 +5,7 @@ import processError from '../helpers/cards';
 
 export const getAllCards = async (req: RequestWithId, res: Response, next: NextFunction) => {
   await Card.find({})
+    .populate('owner')
     .then((cards) => res.json(cards))
     .catch((err) => processError(err, res));
   next();
@@ -36,6 +37,7 @@ export const deleteCard = async (
 ) => {
   const { cardId } = req.params;
   await Card.findByIdAndRemove(cardId)
+    .populate('owner')
     .then((card) => res.json(card))
     .catch((err) => processError(err, res));
   next();
@@ -54,6 +56,7 @@ export const likeCard = async (
       { $addToSet: { likes: _id } },
       { returnDocument: 'after' },
     )
+      .populate('owner')
       .then((card) => res.json(card))
       .catch((err) => processError(err, res));
   }
@@ -73,6 +76,7 @@ export const dislikeCard = async (
       { $pull: { likes: userId } },
       { returnDocument: 'after' },
     )
+      .populate('owner')
       .then((card) => res.json(card))
       .catch((err) => processError(err, res));
   }
