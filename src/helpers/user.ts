@@ -4,6 +4,7 @@ import User from '../models/user';
 
 export const handleError = (err: any, res: Response) => res.status(500).json({
   massage: `Произошла ошибка: ${err}`,
+  err,
 });
 
 interface IBody {
