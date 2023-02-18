@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import User from '../models/user';
 import { RequestWithId } from '../types/interfaces';
-import { handleError, updateInfo } from '../helpers/user';
+import { handleError, updateInfo } from '../helpers/users';
 
 export const getAllUsers = async (req: Request, res: Response, next: NextFunction) => {
   await User.find({})

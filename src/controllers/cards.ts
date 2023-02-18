@@ -1,12 +1,12 @@
 import { Response, NextFunction } from 'express';
 import Card from '../models/card';
 import { RequestWithId } from '../types/interfaces';
-import { handleError } from '../helpers/cards';
+import processError from '../helpers/cards';
 
 export const getAllCards = async (req: RequestWithId, res: Response, next: NextFunction) => {
   await Card.find({})
     .then((cards) => res.json(cards))
-    .catch((err) => handleError(err, res));
+    .catch((err) => processError(err, res));
   next();
 };
 
@@ -24,7 +24,7 @@ export const createCard = async (
     const { name, link } = req.body;
     await Card.create({ owner: userId, name, link })
       .then((card) => res.json(card))
-      .catch((err) => handleError(err, res));
+      .catch((err) => processError(err, res));
   }
   next();
 };
@@ -37,7 +37,7 @@ export const deleteCard = async (
   const { cardId } = req.params;
   await Card.findByIdAndRemove(cardId)
     .then((card) => res.json(card))
-    .catch((err) => handleError(err, res));
+    .catch((err) => processError(err, res));
   next();
 };
 
@@ -55,7 +55,7 @@ export const likeCard = async (
       { returnDocument: 'after' },
     )
       .then((card) => res.json(card))
-      .catch((err) => handleError(err, res));
+      .catch((err) => processError(err, res));
   }
   next();
 };
@@ -74,7 +74,7 @@ export const dislikeCard = async (
       { returnDocument: 'after' },
     )
       .then((card) => res.json(card))
-      .catch((err) => handleError(err, res));
+      .catch((err) => processError(err, res));
   }
   next();
 };
