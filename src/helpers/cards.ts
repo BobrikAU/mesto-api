@@ -1,7 +1,20 @@
 import { Response } from 'express';
+import CodesErrors from '../types/codesErrors';
 
-export const handleError = (err: any, res: Response) => res.status(500).json({
-  massage: `Произошла ошибка: ${err}`,
-});
+const handleErrors = (err: any, res: Response) => {
+  if (err.name === 'CastError' && err.path === '_id') {
+    return res.status(CodesErrors.NotFound).json({
+      message: 'Запрошенная карточка не найдена',
+    });
+  }
+  if (err.name === 'ValidationError') {
+    return res.status(CodesErrors.BadReq).json({
+      message: `Переданы некорректные данные: ${err.message}`,
+    });
+  }
+  return res.status(CodesErrors.Default).json({
+    massage: `Произошла ошибка: ${err}`,
+  });
+};
 
-export const lll = () => {};
+export default handleErrors;
